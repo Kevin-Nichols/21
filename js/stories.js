@@ -23,6 +23,8 @@ function generateStoryMarkup(story, deleteBtnBoolean = false) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+
+  //Show the favorites star if the user is logged in
   const star = Boolean(currentUser);
   return $(`
       <li id="${story.storyId}">
@@ -40,12 +42,14 @@ function generateStoryMarkup(story, deleteBtnBoolean = false) {
     `);
 }
 
+// Make the favorite star
 function makeStar (story, user){
   const favoriteBoolean = user.favoriteBoolean(story);
   const isStar = favoriteBoolean ? 'fas' : 'far';
   return `<span class='star'><i class='${isStar} fa-star'></i></span>`;
 }
 
+//Make the delete story button
 function makeDeleteBtn(){
   return `<span class='deleteBtn'><i class='fas fa-trash-alt'></i></span>`;
 }
@@ -71,6 +75,7 @@ async function submitStory(e){
   e.preventDefault();
   console.debug('submitStory');
 
+  //Gets info from form
   const title = $('#make-title').val();
   const author= $('#make-author').val();
   const url = $('#make-url').val();
@@ -81,19 +86,22 @@ async function submitStory(e){
 
   $allStoriesList.prepend(genStory);
 
+  //Hides and resets submittion form
   $storyForm.trigger('reset');
   $storyForm.slideUp('slow');
 }
 $storyForm.on('submit', submitStory);
 
-
+// Deletes a story from the form
 async function deleteStory(e){
   console.debug("deleteStory");
   const $closest = $(e.target).closest('li');
   const id = $closest.attr('id');
 
   await storyList.removeStory(currentUser, id);
-  await putMyStoriesOnPage();
+  $($closest).remove();
+  putMyStoriesOnPage();
+  
 }
 $myStories.on('click', '.deleteBtn', deleteStory);
 
