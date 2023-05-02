@@ -99,13 +99,12 @@ async function deleteStory(e){
   const id = $closest.attr('id');
 
   await storyList.removeStory(currentUser, id);
-  $($closest).remove();
   putMyStoriesOnPage();
   
 }
 $myStories.on('click', '.deleteBtn', deleteStory);
 
-
+//Puts favorites list on the page
 function putFavoritesOnPage(){
   console.debug("putFavoritesOnPage");
   $favoritesList.empty();
@@ -121,6 +120,7 @@ function putFavoritesOnPage(){
   $favoritesList.show();
 }
 
+//Toggles the favorite and unfavorite
 async function toggleFavoritesList(e){
   console.debug('toggleFavoritesList')
   const $target = $(e.target);
@@ -138,6 +138,7 @@ async function toggleFavoritesList(e){
 } 
 $storiesListClass.on('click', '.star', toggleFavoritesList);
 
+//Put the users story on the page
 function putMyStoriesOnPage(){
   console.debug('putMyStoriesOnPage');
   $myStories.empty();
