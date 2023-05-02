@@ -51,4 +51,11 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
- 
+
+function navMyStoriesClick(e){
+  console.debug('navMyStoriesClick', e);
+  hidePageComponents();
+  putMyStoriesOnPage();
+  $myStories.show();
+}
+$body.on("click", "#nav-my-stories", navMyStoriesClick);
