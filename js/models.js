@@ -228,14 +228,14 @@ class User {
 
   // Add story to favorites list and update API
   async favorite(story){
-    this.favorites.push(story);
     await this.favoriteAddRemove('add', story);
+    this.favorites.push(story);
   }
 
   //Remove story from the favorites list and update the API
   async unFavorite(story){
-    this.favorites = this.favorites.filter(x => x.storyId !== story.storyId);
     await this.favoriteAddRemove('remove', story);
+    this.favorites = this.favorites.filter(x => x.storyId !== story.storyId);
   }
 
   //Update the API as to if a story is favorited or not
@@ -248,6 +248,6 @@ class User {
       data: {token}
     });
   }
-}
+} 
 
 
